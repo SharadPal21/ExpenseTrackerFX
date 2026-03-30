@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/23"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.expensetracker.controller.ExpenseController"
+      spacing="15">
+
+    <!-- FIXED PADDING -->
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Title -->
+    <Label text="💰 Expense Tracker" styleClass="title-label">
+        <font>
+            <Font size="28"/>
+        </font>
+    </Label>
+
+    <!-- Input Form -->
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <DatePicker fx:id="datePicker" promptText="Select Date"/>
+        <TextField fx:id="categoryField" promptText="Category (Food, Travel, Shopping...)" prefWidth="200"/>
+        <TextField fx:id="amountField" promptText="Amount ₹" prefWidth="130"/>
+        <TextArea fx:id="descriptionArea" promptText="Description (optional)" prefWidth="280" prefHeight="50"/>
+        <Button text="Add Expense" onAction="#handleAddExpense" styleClass="add-button" prefWidth="120"/>
+    </HBox>
+
+    <!-- Summary Labels -->
+    <HBox spacing="40">
+        <Label fx:id="totalLabel" text="Total Expenses: ₹ 0.00" styleClass="summary-label"/>
+        <Label fx:id="monthlyTotalLabel" text="This Month: ₹ 0.00" styleClass="summary-label"/>
+    </HBox>
+
+    <!-- Main Content Area -->
+    <SplitPane dividerPositions="0.65" orientation="HORIZONTAL" VBox.vgrow="ALWAYS">
+
+        <!-- Left: Expense Table -->
+        <TableView fx:id="expenseTable" editable="true">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="dateColumn" text="Date" prefWidth="110"/>
+                <TableColumn fx:id="categoryColumn" text="Category" prefWidth="150"/>
+                <TableColumn fx:id="amountColumn" text="Amount (₹)" prefWidth="130"/>
+                <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="280"/>
+            </columns>
+        </TableView>
+
+        <!-- Right: Pie Chart -->
+        <VBox spacing="10">
+
+            <!-- FIXED PADDING -->
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <Label text="📊 Expenses by Category" styleClass="chart-title"/>
+            <PieChart fx:id="expensePieChart" prefHeight="420"/>
+
+        </VBox>
+    </SplitPane>
+
+    <!-- Bottom Action Buttons -->
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="🗑 Delete Selected" onAction="#handleDeleteExpense" styleClass="delete-button" prefWidth="150"/>
+        <Button text="🔄 Refresh" onAction="#handleRefresh" styleClass="refresh-button" prefWidth="120"/>
+    </HBox>
+
+</VBox>
